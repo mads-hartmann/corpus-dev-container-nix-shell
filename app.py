@@ -29,7 +29,7 @@ class Handler(BaseHTTPRequestHandler):
 
 
 def main():
-    host = os.environ.get("HOST", "127.0.0.1")
+    host = os.environ.get("HOST", "0.0.0.0")
     port = int(os.environ.get("PORT", os.environ.get("CORPUS_SERVICE_PORT", "8000")))
     server = ThreadingHTTPServer((host, port), Handler)
     print(f"Serving on http://{host}:{port}", flush=True)

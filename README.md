@@ -24,4 +24,4 @@ Start the HTTP service:
 make serve
 ```
 
-The service listens on `127.0.0.1:8000` by default and exposes `GET /healthz`.
+The service listens on `0.0.0.0:8000` by default and exposes `GET /healthz`.
