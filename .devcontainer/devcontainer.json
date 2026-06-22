@@ -1,0 +1,11 @@
+{
+	"name": "corpus-dev-container-nix-shell",
+	"image": "mcr.microsoft.com/devcontainers/python:3",
+	"forwardPorts": [8000],
+	"portsAttributes": {
+		"8000": {
+			"label": "HTTP service",
+			"onAutoForward": "notify"
+		}
+	}
+}

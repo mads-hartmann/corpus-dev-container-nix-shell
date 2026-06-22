@@ -1,0 +1,28 @@
+# This project has no application dependencies to install: app.py and the test
+# suite use only the Python standard library, and the python:3 dev container
+# image already provides python3, make, and curl. There is therefore no
+# "Install dependencies" task. The check task below builds/tests the project.
+tasks:
+  check:
+    name: Check
+    description: Byte-compile the sources and run the unittest suite.
+    command: |
+      make check
+    triggeredBy:
+      - manual
+      - postDevcontainerStart
+      - prebuild
+
+services:
+  serve:
+    name: HTTP service
+    description: Run the corpus HTTP service on port 8000.
+    triggeredBy:
+      - manual
+      - postEnvironmentStart
+    commands:
+      start: |
+        ona environment port open 8000 --dont-wait --admission creator_only --name "HTTP service"
+        make serve
+      ready: |
+        curl -sf http://localhost:8000/healthz
