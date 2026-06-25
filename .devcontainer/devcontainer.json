@@ -1,0 +1,14 @@
+{
+	"name": "corpus-dev-container-nix-shell",
+	"image": "mcr.microsoft.com/devcontainers/base:ubuntu-24.04",
+	"features": {
+		"ghcr.io/devcontainers/features/nix": {}
+	},
+	"forwardPorts": [8000],
+	"portsAttributes": {
+		"8000": {
+			"label": "Corpus Service",
+			"onAutoForward": "notify"
+		}
+	}
+}

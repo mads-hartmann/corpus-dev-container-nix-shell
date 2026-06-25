@@ -1,0 +1,34 @@
+tasks:
+  installDeps:
+    name: Install dependencies
+    description: Warm the nix-shell environment so the toolchain is ready.
+    command: |
+      nix-shell --run true
+    triggeredBy:
+      - manual
+      - postDevcontainerStart
+      - prebuild
+
+  check:
+    name: Check
+    description: Compile sources and run the unit tests inside nix-shell.
+    command: |
+      nix-shell --run "make check"
+    triggeredBy:
+      - manual
+    dependsOn:
+      - installDeps
+
+services:
+  corpus-service:
+    name: Corpus Service
+    description: HTTP service exposing GET /healthz on port 8000.
+    triggeredBy:
+      - manual
+      - postEnvironmentStart
+    commands:
+      start: |
+        ona environment port open 8000 --dont-wait --admission creator_only --name "Corpus Service"
+        nix-shell --run "make serve"
+      ready: |
+        curl -sf http://localhost:8000/healthz
